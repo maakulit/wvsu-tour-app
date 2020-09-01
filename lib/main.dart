@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:websafe_svg/websafe_svg.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 void main() {
   runApp(MyApp());
@@ -70,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                              padding: EdgeInsets.all(40),
+                              padding: EdgeInsets.all(50),
                               child: Container(
                                   decoration: BoxDecoration(
                                     color: Colors.white,
@@ -80,14 +81,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                   child: Padding(
                                       padding: EdgeInsets.all(30),
                                       child: Column(children: [
-                                        Text("Hello Taga-West!",
-                                            style: GoogleFonts.openSans(
-                                                color: Color(0xFF106DCF),
-                                                fontSize: 25,
-                                                fontWeight: FontWeight.w500)),
-                                        SizedBox(
-                                          height: 20,
-                                        ),
                                         WebsafeSvg.asset('assets/icon/icon.svg',
                                             height: 110),
                                         SizedBox(
@@ -96,24 +89,26 @@ class _MyHomePageState extends State<MyHomePage> {
                                         Text("West Visayas State University",
                                             style: GoogleFonts.openSans(
                                               color: Color(0xFF106DCF),
-                                              fontSize: 17,
+                                              fontSize: 14,
                                             )),
-                                        Text("Mobile Tour",
-                                            style: GoogleFonts.openSans(
-                                              color: Color(0xFF106DCF),
-                                              fontSize: 25,
-                                            )),
+                                        Text("Campus Tour",
+                                            style: GoogleFonts.pattaya(
+                                                color: Color(0xFF106DCF),
+                                                fontSize: 35,
+                                                fontWeight: FontWeight.bold,
+                                                letterSpacing: 1)),
                                         SizedBox(
-                                          height: 20,
+                                          height: 50,
                                         ),
                                         SizedBox(
                                           width: double.infinity,
-                                          child: FlatButton(
+                                          child: FlatButton.icon(
                                               color: Color(0xFF075BB3),
                                               padding: EdgeInsets.fromLTRB(
-                                                  30, 15, 25, 15),
+                                                  25, 15, 25, 15),
                                               onPressed: () {},
-                                              child: Text(
+                                              icon: Icon(FontAwesome.facebook),
+                                              label: Text(
                                                 "Continue with Facebook",
                                                 style: GoogleFonts.openSans(
                                                     color: Colors.white,
@@ -131,12 +126,13 @@ class _MyHomePageState extends State<MyHomePage> {
                                         ),
                                         SizedBox(
                                           width: double.infinity,
-                                          child: FlatButton(
+                                          child: FlatButton.icon(
                                               color: Color(0xFF075BB3),
                                               padding: EdgeInsets.fromLTRB(
-                                                  30, 15, 25, 15),
+                                                  25, 15, 25, 15),
                                               onPressed: () {},
-                                              child: Text(
+                                              icon: Icon(FontAwesome.google),
+                                              label: Text(
                                                 "Continue with Google",
                                                 style: GoogleFonts.openSans(
                                                     color: Colors.white,
@@ -156,9 +152,19 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       Padding(
                           padding: EdgeInsets.fromLTRB(40, 0, 40, 0),
-                          child: Text(
-                              "By creating or logging into an account, you are agreeing with our Privacy Policy.",
-                              style: GoogleFonts.openSans(color: Colors.white)))
+                          child: RichText(
+                              text: TextSpan(children: [
+                            TextSpan(
+                                text:
+                                    "Taga-West! By creating or logging into an account, you are agreeing with our. ",
+                                style:
+                                    GoogleFonts.openSans(color: Colors.white)),
+                            TextSpan(
+                                text: "Privacy Policy",
+                                style: GoogleFonts.openSans(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold))
+                          ])))
                     ])
               ],
             )));
