@@ -38,6 +38,11 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   List<int> data = [];
   int _focusedIndex = 0;
+  GlobalKey<ScrollSnapListState> sslKeyCampus = GlobalKey();
+  GlobalKey<ScrollSnapListState> sslKeyAdmin = GlobalKey();
+  GlobalKey<ScrollSnapListState> sslKeyOrganizations = GlobalKey();
+  GlobalKey<ScrollSnapListState> sslKeyLandmarks = GlobalKey();
+  GlobalKey<ScrollSnapListState> sslKeyStaff = GlobalKey();
 
   @override
   void initState() {
@@ -49,21 +54,27 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _buildListItem(BuildContext context, int index) {
-    //horizontal
     return Container(
-      width: 330,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-          Container(
-            decoration: BoxDecoration(
-                color: Color(0xFF106DCF),
-                borderRadius: BorderRadius.all(Radius.circular(20))),
-            height: 200,
-            width: 300,
-            child: null,
-          )
-        ],
+      margin: EdgeInsets.symmetric(horizontal: 5),
+      width: 350,
+      child: Material(
+        borderRadius: BorderRadius.all(Radius.circular(20)),
+        color: Color(0xFF106DCF),
+        child: InkWell(
+          onTap: () {
+            sslKeyCampus.currentState.focusToItem(index);
+          },
+          child: Stack(
+            children: [
+              Positioned(
+                bottom: 20,
+                left: 20,
+                child: Text("Data Here",
+                    style: GoogleFonts.openSans(color: Colors.white)),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -151,11 +162,12 @@ class _MyHomePageState extends State<MyHomePage> {
                         width: double.infinity,
                         height: 220,
                         child: ScrollSnapList(
-                          initialIndex: 2,
+                          margin: EdgeInsets.symmetric(vertical: 10),
                           onItemFocus: _onItemFocus,
-                          itemSize: 35,
+                          itemSize: 360,
                           itemBuilder: _buildListItem,
                           itemCount: data.length,
+                          key: sslKeyCampus,
                         ),
                       ),
                       SizedBox(
@@ -174,11 +186,60 @@ class _MyHomePageState extends State<MyHomePage> {
                         width: double.infinity,
                         height: 220,
                         child: ScrollSnapList(
-                          initialIndex: 2,
+                          margin: EdgeInsets.symmetric(vertical: 10),
                           onItemFocus: _onItemFocus,
-                          itemSize: 35,
+                          itemSize: 360,
                           itemBuilder: _buildListItem,
                           itemCount: data.length,
+                          key: sslKeyAdmin,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 30),
+                          child: Text(
+                            "Landmarks",
+                            style: GoogleFonts.openSans(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFF4F4F4F)),
+                          )),
+                      SizedBox(
+                        width: double.infinity,
+                        height: 220,
+                        child: ScrollSnapList(
+                          margin: EdgeInsets.symmetric(vertical: 10),
+                          onItemFocus: _onItemFocus,
+                          itemSize: 360,
+                          itemBuilder: _buildListItem,
+                          itemCount: data.length,
+                          key: sslKeyLandmarks,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 30),
+                          child: Text(
+                            "Staff",
+                            style: GoogleFonts.openSans(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFF4F4F4F)),
+                          )),
+                      SizedBox(
+                        width: double.infinity,
+                        height: 220,
+                        child: ScrollSnapList(
+                          margin: EdgeInsets.symmetric(vertical: 10),
+                          onItemFocus: _onItemFocus,
+                          itemSize: 360,
+                          itemBuilder: _buildListItem,
+                          itemCount: data.length,
+                          key: sslKeyStaff,
                         ),
                       ),
                     ],
