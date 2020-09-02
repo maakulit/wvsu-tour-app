@@ -5,6 +5,7 @@ import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:scroll_snap_list/scroll_snap_list.dart';
 import 'package:websafe_svg/websafe_svg.dart';
+import 'package:wvsu_tour_app/config/app.dart';
 
 class NavigatorScreen extends StatefulWidget {
   NavigatorScreen({Key key}) : super(key: key);
@@ -38,7 +39,7 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
       width: 350,
       child: Material(
         borderRadius: BorderRadius.all(Radius.circular(20)),
-        color: Color(0xFF106DCF),
+        color: appPrimaryColor,
         child: InkWell(
           onTap: () {
             sslKeyCampus.currentState.focusToItem(index);
@@ -67,16 +68,16 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0xFFF3F3F3),
+        backgroundColor: appScaffoldBackgroundColor,
         body: SingleChildScrollView(
           child: Stack(
             children: [
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Container(
                   decoration: BoxDecoration(
-                      color: Color(0xFF106DCF),
+                      color: appPrimaryColor,
                       borderRadius:
-                          BorderRadius.vertical(bottom: Radius.circular(40)),
+                          BorderRadius.vertical(bottom: Radius.circular(36)),
                       image: DecorationImage(
                           fit: BoxFit.contain,
                           alignment: Alignment.bottomRight,
@@ -84,9 +85,9 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
                               AssetImage('assets/images/home-screen-top.png'))),
                   child: SizedBox(
                       width: double.infinity,
-                      height: 230,
+                      height: MediaQuery.of(context).size.height * 0.3,
                       child: Padding(
-                          padding: EdgeInsets.fromLTRB(40, 50, 40, 0),
+                          padding: EdgeInsets.fromLTRB(40, 40, 40, 0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -231,8 +232,8 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
                 )
               ]),
               Positioned(
-                  top: 40,
-                  right: 20,
+                  top: 30,
+                  right: appDefaultPadding,
                   child: IconButton(
                       icon: Icon(Feather.log_out),
                       color: Colors.white,

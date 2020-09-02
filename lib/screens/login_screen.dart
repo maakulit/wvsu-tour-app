@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:wvsu_tour_app/config/app.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key key}) : super(key: key);
@@ -18,28 +19,28 @@ class _LoginScreenState extends State<LoginScreen> {
     return Container(
       child: Container(
           decoration: BoxDecoration(
-              color: Color(0xFF106DCF),
+              color: appPrimaryColor,
               image: DecorationImage(
                   fit: BoxFit.cover,
                   alignment: Alignment.bottomCenter,
                   image: AssetImage('assets/images/login-bg.png'))),
           child: Scaffold(
+              appBar: AppBar(
+                elevation: 0,
+                backgroundColor: Colors.transparent,
+                leading: IconButton(
+                  icon: Icon(Icons.close),
+                  onPressed: () {
+                    exit(0);
+                  },
+                  color: Colors.white,
+                ),
+              ),
               backgroundColor: Colors.transparent,
               body: Stack(
                 children: [
-                  Positioned(
-                      top: 40,
-                      left: 20,
-                      child: IconButton(
-                        icon: Icon(Icons.close),
-                        onPressed: () {
-                          exit(0);
-                        },
-                        color: Colors.white,
-                      )),
                   Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(
                           width: MediaQuery.of(context).size.width,
@@ -47,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
-                                padding: EdgeInsets.all(50),
+                                padding: EdgeInsets.all(appDefaultPadding + 30),
                                 child: Container(
                                     decoration: BoxDecoration(
                                       color: Colors.white,
