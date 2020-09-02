@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:scroll_snap_list/scroll_snap_list.dart';
 import 'package:websafe_svg/websafe_svg.dart';
@@ -228,7 +229,16 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
                     ],
                   ),
                 )
-              ])
+              ]),
+              Positioned(
+                  top: 40,
+                  right: 20,
+                  child: IconButton(
+                      icon: Icon(Feather.log_out),
+                      color: Colors.white,
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(context, "/");
+                      })),
             ],
           ),
         ));

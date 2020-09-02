@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:websafe_svg/websafe_svg.dart';
@@ -20,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
               image: DecorationImage(
                   fit: BoxFit.cover,
                   alignment: Alignment.bottomCenter,
-                  image: AssetImage('assets/images/loginScreen-bg.png'))),
+                  image: AssetImage('assets/images/login-bg.png'))),
           child: Scaffold(
               backgroundColor: Colors.transparent,
               body: Stack(
@@ -30,7 +32,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       left: 20,
                       child: IconButton(
                         icon: Icon(Icons.close),
-                        onPressed: () {},
+                        onPressed: () {
+                          exit(0);
+                        },
                         color: Colors.white,
                       )),
                   Column(
@@ -55,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         child: Column(children: [
                                           WebsafeSvg.asset(
                                               'assets/icon/icon.svg',
-                                              height: 110),
+                                              height: 100),
                                           SizedBox(
                                             height: 20,
                                           ),
@@ -79,7 +83,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                                 color: Color(0xFF075BB3),
                                                 padding: EdgeInsets.fromLTRB(
                                                     25, 15, 25, 15),
-                                                onPressed: () {},
+                                                onPressed: () {
+                                                  Navigator
+                                                      .pushReplacementNamed(
+                                                          context, "/home");
+                                                },
                                                 icon:
                                                     Icon(FontAwesome.facebook),
                                                 label: Text(
@@ -104,7 +112,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                                 color: Color(0xFF075BB3),
                                                 padding: EdgeInsets.fromLTRB(
                                                     25, 15, 25, 15),
-                                                onPressed: () {},
+                                                onPressed: () {
+                                                  Navigator
+                                                      .pushReplacementNamed(
+                                                          context, "/home");
+                                                },
                                                 icon: Icon(FontAwesome.google),
                                                 label: Text(
                                                   "Continue with Google",
