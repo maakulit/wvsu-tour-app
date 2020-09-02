@@ -3,14 +3,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
-class Login extends StatefulWidget {
-  Login({Key key}) : super(key: key);
+class LoginScreen extends StatefulWidget {
+  LoginScreen({Key key}) : super(key: key);
 
   @override
-  _LoginState createState() => _LoginState();
+  _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _LoginState extends State<Login> {
+class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -20,7 +20,7 @@ class _LoginState extends State<Login> {
               image: DecorationImage(
                   fit: BoxFit.cover,
                   alignment: Alignment.bottomCenter,
-                  image: AssetImage('assets/images/login-bg.png'))),
+                  image: AssetImage('assets/images/loginScreen-bg.png'))),
           child: Scaffold(
               backgroundColor: Colors.transparent,
               body: Stack(

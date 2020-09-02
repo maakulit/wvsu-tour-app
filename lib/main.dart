@@ -1,11 +1,11 @@
-import 'dart:math';
-
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:websafe_svg/websafe_svg.dart';
-import 'package:scroll_snap_list/scroll_snap_list.dart';
+import 'package:wvsu_tour_app/screens/announcements_screen.dart';
+import 'package:wvsu_tour_app/screens/campus_life_screen.dart';
+import 'package:wvsu_tour_app/screens/messages_screen.dart';
+import 'package:wvsu_tour_app/screens/navigator_screen.dart';
+import 'package:wvsu_tour_app/screens/thankyou_frontliners_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Login'),
+      home: MyHomePage(title: 'App'),
     );
   }
 }
@@ -35,54 +35,14 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  List<int> data = [];
-  int _focusedIndex = 0;
-  GlobalKey<ScrollSnapListState> sslKeyCampus = GlobalKey();
-  GlobalKey<ScrollSnapListState> sslKeyAdmin = GlobalKey();
-  GlobalKey<ScrollSnapListState> sslKeyOrganizations = GlobalKey();
-  GlobalKey<ScrollSnapListState> sslKeyLandmarks = GlobalKey();
-  GlobalKey<ScrollSnapListState> sslKeyStaff = GlobalKey();
+class _MyHomePageState extends State<MyHomePage>
+    with SingleTickerProviderStateMixin {
+  TabController _tabController;
 
   @override
   void initState() {
     super.initState();
-
-    for (int i = 0; i < 30; i++) {
-      data.add(Random().nextInt(100) + 1);
-    }
-  }
-
-  Widget _buildListItem(BuildContext context, int index) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 5),
-      width: 350,
-      child: Material(
-        borderRadius: BorderRadius.all(Radius.circular(20)),
-        color: Color(0xFF106DCF),
-        child: InkWell(
-          onTap: () {
-            sslKeyCampus.currentState.focusToItem(index);
-          },
-          child: Stack(
-            children: [
-              Positioned(
-                bottom: 20,
-                left: 20,
-                child: Text("Data Here",
-                    style: GoogleFonts.openSans(color: Colors.white)),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  void _onItemFocus(int index) {
-    setState(() {
-      _focusedIndex = index;
-    });
+    _tabController = TabController(length: 5, vsync: this);
   }
 
   @override
@@ -93,161 +53,33 @@ class _MyHomePageState extends State<MyHomePage> {
           color: Color(0xFF106DCF),
           backgroundColor: Colors.white,
           activeColor: Color(0xFF106DCF),
-
+          controller: _tabController,
           items: [
             TabItem(
-              icon: Icons.notifications,
+              icon: Feather.rss,
             ),
             TabItem(
-              icon: Icons.navigation,
+              icon: Feather.message_square,
             ),
             TabItem(
-              icon: Icons.favorite,
+              icon: Feather.navigation_2,
+            ),
+            TabItem(
+              icon: Feather.heart,
+            ),
+            TabItem(
+              icon: Feather.book_open,
             ),
           ],
           initialActiveIndex: 2, //optional, default as 0
           onTap: (int i) => print('click index=$i'),
         ),
-        body: SingleChildScrollView(
-          child: Stack(
-            children: [
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Container(
-                  decoration: BoxDecoration(
-                      color: Color(0xFF106DCF),
-                      borderRadius:
-                          BorderRadius.vertical(bottom: Radius.circular(40)),
-                      image: DecorationImage(
-                          fit: BoxFit.contain,
-                          alignment: Alignment.bottomRight,
-                          image:
-                              AssetImage('assets/images/home-screen-top.png'))),
-                  child: SizedBox(
-                      width: double.infinity,
-                      height: 230,
-                      child: Padding(
-                          padding: EdgeInsets.fromLTRB(40, 50, 40, 0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              WebsafeSvg.asset('assets/icon/icon-light.svg',
-                                  height: 80),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Text("West Visayas State University",
-                                  style: GoogleFonts.openSans(
-                                      color: Colors.white)),
-                              Text("Campus Tour",
-                                  style: GoogleFonts.pattaya(
-                                      color: Colors.white, fontSize: 30))
-                            ],
-                          ))),
-                ),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(0, 20, 0, 40),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 30),
-                          child: Text(
-                            "Campuses",
-                            style: GoogleFonts.openSans(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xFF4F4F4F)),
-                          )),
-                      SizedBox(
-                        width: double.infinity,
-                        height: 220,
-                        child: ScrollSnapList(
-                          margin: EdgeInsets.symmetric(vertical: 10),
-                          onItemFocus: _onItemFocus,
-                          itemSize: 360,
-                          itemBuilder: _buildListItem,
-                          itemCount: data.length,
-                          key: sslKeyCampus,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 30),
-                          child: Text(
-                            "Admin Offices",
-                            style: GoogleFonts.openSans(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xFF4F4F4F)),
-                          )),
-                      SizedBox(
-                        width: double.infinity,
-                        height: 220,
-                        child: ScrollSnapList(
-                          margin: EdgeInsets.symmetric(vertical: 10),
-                          onItemFocus: _onItemFocus,
-                          itemSize: 360,
-                          itemBuilder: _buildListItem,
-                          itemCount: data.length,
-                          key: sslKeyAdmin,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 30),
-                          child: Text(
-                            "Landmarks",
-                            style: GoogleFonts.openSans(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xFF4F4F4F)),
-                          )),
-                      SizedBox(
-                        width: double.infinity,
-                        height: 220,
-                        child: ScrollSnapList(
-                          margin: EdgeInsets.symmetric(vertical: 10),
-                          onItemFocus: _onItemFocus,
-                          itemSize: 360,
-                          itemBuilder: _buildListItem,
-                          itemCount: data.length,
-                          key: sslKeyLandmarks,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 30),
-                          child: Text(
-                            "Staff",
-                            style: GoogleFonts.openSans(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xFF4F4F4F)),
-                          )),
-                      SizedBox(
-                        width: double.infinity,
-                        height: 220,
-                        child: ScrollSnapList(
-                          margin: EdgeInsets.symmetric(vertical: 10),
-                          onItemFocus: _onItemFocus,
-                          itemSize: 360,
-                          itemBuilder: _buildListItem,
-                          itemCount: data.length,
-                          key: sslKeyStaff,
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ])
-            ],
-          ),
-        ));
+        body: TabBarView(controller: _tabController, children: [
+          new AnnouncementsScreen(),
+          new MessagesScreen(),
+          new NavigatorScreen(),
+          new ThankyouFrontlinersScreen(),
+          new CampusLifeScreen(),
+        ]));
   }
 }
