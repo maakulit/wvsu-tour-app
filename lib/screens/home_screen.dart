@@ -5,6 +5,7 @@ import 'package:wvsu_tour_app/screens/announcements_screen.dart';
 import 'package:wvsu_tour_app/screens/campus_life_screen.dart';
 import 'package:wvsu_tour_app/screens/messages_screen.dart';
 import 'package:wvsu_tour_app/screens/navigator_screen.dart';
+import 'package:wvsu_tour_app/screens/profile_screen.dart';
 import 'package:wvsu_tour_app/screens/thankyou_frontliners_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -55,10 +56,10 @@ class _HomeScreenState extends State<HomeScreen>
         ),
         body: TabBarView(controller: _tabController, children: [
           new AnnouncementsScreen(),
-          new MessagesScreen(),
+          new CampusLifeScreen(),
           new NavigatorScreen(),
           new ThankyouFrontlinersScreen(),
-          new CampusLifeScreen(),
+          new ProfileScreen(),
         ]));
   }
 }

@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         // initialRoute: "/",
+        home: LoginScreen(),
         theme: ThemeData(
           primaryColor: appPrimaryColor,
           scaffoldBackgroundColor: appScaffoldBackgroundColor,
@@ -21,7 +22,6 @@ class MyApp extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         routes: <String, WidgetBuilder>{
-          '/': (BuildContext context) => new LoginScreen(),
           '/home': (BuildContext context) => new HomeScreen(),
         });
   }

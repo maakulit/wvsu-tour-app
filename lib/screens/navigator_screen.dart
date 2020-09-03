@@ -1,10 +1,9 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:scroll_snap_list/scroll_snap_list.dart';
-import 'package:websafe_svg/websafe_svg.dart';
+import 'package:wvsu_tour_app/components/app_brand_horizontal.dart';
 import 'package:wvsu_tour_app/config/app.dart';
 
 class NavigatorScreen extends StatefulWidget {
@@ -32,13 +31,13 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
       data.add(Random().nextInt(100) + 1);
     }
 
-    print(_focusedIndex);
+    // print(_focusedIndex);
   }
 
   Widget _buildListItem(BuildContext context, int index) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 5),
-      width: 350,
+      margin: EdgeInsets.symmetric(horizontal: 10),
+      width: 200,
       child: Material(
         borderRadius: appDefaultBorderRadius,
         color: appPrimaryColor,
@@ -70,75 +69,84 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
   @override
   Widget build(BuildContext context) {
     Size appScreenSize = MediaQuery.of(context).size;
-    return Scaffold(
-      backgroundColor: appPrimaryColor,
-      body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Container(
-          decoration: BoxDecoration(
-              color: appPrimaryColor,
-              image: DecorationImage(
-                  fit: BoxFit.contain,
-                  alignment: Alignment.bottomRight,
-                  image: AssetImage('assets/images/home-screen-top.png'))),
-          child: SizedBox(
-              width: double.infinity,
-              child: Stack(
-                children: [
-                  Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: appDefaultPadding, vertical: 40),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              WebsafeSvg.asset('assets/icon/icon-light.svg',
-                                  height: 70),
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text("West Visayas State University",
-                                      style: GoogleFonts.openSans(
-                                          color: Colors.white)),
-                                  Text("Campus Tour",
-                                      style: GoogleFonts.pattaya(
-                                          color: Colors.white, fontSize: 30))
-                                ],
-                              )
-                            ],
-                          ),
-                        ],
-                      )),
-                  Positioned(
-                      top: appScreenSize.height * 0.19,
-                      child: SizedBox(
-                          width: appScreenSize.width,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                    color: appScaffoldBackgroundColor,
-                                    borderRadius: BorderRadius.vertical(
-                                        top: Radius.circular(36))),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text("datsdsa"),
-                                    Text("datsdsa"),
-                                  ],
-                                ),
-                              )
-                            ],
-                          )))
-                ],
-              )),
+    return SingleChildScrollView(
+      child: Container(
+        decoration: BoxDecoration(
+            color: appPrimaryColor,
+            image: DecorationImage(
+                alignment: Alignment.topRight,
+                image: AssetImage('assets/images/home-screen-top.png'))),
+        child: Stack(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(
+                        appDefaultPadding, 45, appDefaultPadding, 20),
+                    child: AppBrandHorizontal(),
+                  ),
+                ),
+              ],
+            ),
+            Padding(
+                padding: EdgeInsets.only(top: appScreenSize.height * 0.2),
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius:
+                          BorderRadius.vertical(top: Radius.circular(36))),
+                  width: appScreenSize.width,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(30, 30, 30, 10),
+                        child: Text(
+                          "Explore",
+                          style: GoogleFonts.openSans(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 200,
+                        width: double.infinity,
+                        child: ScrollSnapList(
+                          margin: EdgeInsets.symmetric(vertical: 10),
+                          onItemFocus: _onItemFocus,
+                          itemSize: 360,
+                          itemBuilder: _buildListItem,
+                          itemCount: data.length,
+                          key: sslKeyCampus,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
+                        child: Text(
+                          "Featured",
+                          style: GoogleFonts.openSans(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 200,
+                        width: double.infinity,
+                        child: ScrollSnapList(
+                          margin: EdgeInsets.symmetric(vertical: 10),
+                          onItemFocus: _onItemFocus,
+                          itemSize: 360,
+                          itemBuilder: _buildListItem,
+                          itemCount: data.length,
+                          key: sslKeyAdmin,
+                        ),
+                      )
+                    ],
+                  ),
+                ))
+          ],
         ),
-      ]),
+      ),
     );
   }
 }

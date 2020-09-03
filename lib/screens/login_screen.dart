@@ -92,7 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                 icon: Icon(SimpleLineIcons
                                                     .social_facebook),
                                                 label: Text(
-                                                  "Continue with Facebook",
+                                                  "Login with Facebook",
                                                   style: GoogleFonts.openSans(
                                                       color: Colors.white,
                                                       fontSize: 15),
@@ -121,7 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                 icon: Icon(SimpleLineIcons
                                                     .social_google),
                                                 label: Text(
-                                                  "Continue with Google",
+                                                  "Login with Google",
                                                   style: GoogleFonts.openSans(
                                                       color: Colors.white,
                                                       fontSize: 15),
