@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wvsu_tour_app/config/app.dart';
 
@@ -44,7 +45,20 @@ class AnnouncementCard extends StatelessWidget {
                             style: GoogleFonts.openSans(
                                 color: Color(0xFF000000), fontSize: 18),
                           ),
-                          Text("Announcement description here")
+                          Text("Announcement description here"),
+                          Divider(),
+                          Row(
+                            children: [
+                              Icon(
+                                SimpleLineIcons.clock,
+                                size: 15,
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text("1 hour ago")
+                            ],
+                          )
                         ],
                       )
                     ],

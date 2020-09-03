@@ -1,3 +1,4 @@
+import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -74,15 +75,27 @@ class _ThankyouFrontlinersScreenState extends State<ThankyouFrontlinersScreen> {
             ],
           ),
           Positioned(
-              left: MediaQuery.of(context).size.width * 0.33,
-              top: MediaQuery.of(context).size.height * 0.6,
-              child: IconButton(
-                  icon: Icon(
-                    Icons.favorite,
-                    color: Colors.red,
-                    size: 130,
-                  ),
-                  onPressed: () {}))
+            left: MediaQuery.of(context).size.width * 0.33,
+            top: MediaQuery.of(context).size.height * 0.6,
+            child: AvatarGlow(
+              endRadius: 60.0,
+              child: Material(
+                elevation: 0,
+                shape: CircleBorder(),
+                child: CircleAvatar(
+                  backgroundColor: Colors.grey[100],
+                  child: IconButton(
+                      icon: Icon(
+                        Icons.favorite,
+                        color: Colors.red,
+                        size: 30,
+                      ),
+                      onPressed: () {}),
+                  radius: 30.0,
+                ),
+              ),
+            ),
+          )
         ],
       ),
     );

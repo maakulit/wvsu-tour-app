@@ -1,6 +1,7 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:wvsu_tour_app/screens/about_screen.dart';
 import 'package:wvsu_tour_app/screens/announcements_screen.dart';
 import 'package:wvsu_tour_app/screens/campus_life_screen.dart';
 import 'package:wvsu_tour_app/screens/navigator_screen.dart';
@@ -47,9 +48,7 @@ class _HomeScreenState extends State<HomeScreen>
             TabItem(
               icon: SimpleLineIcons.heart,
             ),
-            TabItem(
-              icon: SimpleLineIcons.user,
-            ),
+            TabItem(icon: SimpleLineIcons.info),
           ],
           initialActiveIndex: 2, //optional, default as 0
           onTap: (int i) => print('click index=$i'),
@@ -59,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen>
           new CampusLifeScreen(),
           new NavigatorScreen(),
           new ThankyouFrontlinersScreen(),
-          new ProfileScreen(),
+          new AboutScreen(),
         ]));
   }
 }
