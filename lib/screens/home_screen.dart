@@ -35,19 +35,19 @@ class _HomeScreenState extends State<HomeScreen>
           controller: _tabController,
           items: [
             TabItem(
-              icon: Feather.rss,
+              icon: SimpleLineIcons.feed,
             ),
             TabItem(
-              icon: Feather.message_square,
+              icon: SimpleLineIcons.graduation,
             ),
             TabItem(
-              icon: Feather.navigation_2,
+              icon: SimpleLineIcons.cursor,
             ),
             TabItem(
-              icon: Feather.heart,
+              icon: SimpleLineIcons.heart,
             ),
             TabItem(
-              icon: Feather.book_open,
+              icon: SimpleLineIcons.user,
             ),
           ],
           initialActiveIndex: 2, //optional, default as 0

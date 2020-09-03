@@ -89,8 +89,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                                       .pushReplacementNamed(
                                                           context, "/home");
                                                 },
-                                                icon:
-                                                    Icon(FontAwesome.facebook),
+                                                icon: Icon(SimpleLineIcons
+                                                    .social_facebook),
                                                 label: Text(
                                                   "Continue with Facebook",
                                                   style: GoogleFonts.openSans(
@@ -118,7 +118,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                                       .pushReplacementNamed(
                                                           context, "/home");
                                                 },
-                                                icon: Icon(FontAwesome.google),
+                                                icon: Icon(SimpleLineIcons
+                                                    .social_google),
                                                 label: Text(
                                                   "Continue with Google",
                                                   style: GoogleFonts.openSans(

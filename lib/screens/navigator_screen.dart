@@ -31,6 +31,8 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
     for (int i = 0; i < 30; i++) {
       data.add(Random().nextInt(100) + 1);
     }
+
+    print(_focusedIndex);
   }
 
   Widget _buildListItem(BuildContext context, int index) {
@@ -38,7 +40,7 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
       margin: EdgeInsets.symmetric(horizontal: 5),
       width: 350,
       child: Material(
-        borderRadius: BorderRadius.all(Radius.circular(20)),
+        borderRadius: appDefaultBorderRadius,
         color: appPrimaryColor,
         child: InkWell(
           onTap: () {
@@ -67,181 +69,76 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Size appScreenSize = MediaQuery.of(context).size;
     return Scaffold(
-        backgroundColor: appScaffoldBackgroundColor,
-        body: SingleChildScrollView(
-          child: Stack(
-            children: [
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Container(
-                  decoration: BoxDecoration(
-                      color: appPrimaryColor,
-                      borderRadius:
-                          BorderRadius.vertical(bottom: Radius.circular(36)),
-                      image: DecorationImage(
-                          fit: BoxFit.contain,
-                          alignment: Alignment.bottomRight,
-                          image:
-                              AssetImage('assets/images/home-screen-top.png'))),
-                  child: SizedBox(
-                      width: double.infinity,
-                      height: MediaQuery.of(context).size.height * 0.3,
-                      child: Padding(
-                          padding: EdgeInsets.fromLTRB(40, 40, 40, 0),
+      backgroundColor: appPrimaryColor,
+      body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Container(
+          decoration: BoxDecoration(
+              color: appPrimaryColor,
+              image: DecorationImage(
+                  fit: BoxFit.contain,
+                  alignment: Alignment.bottomRight,
+                  image: AssetImage('assets/images/home-screen-top.png'))),
+          child: SizedBox(
+              width: double.infinity,
+              child: Stack(
+                children: [
+                  Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: appDefaultPadding, vertical: 40),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              WebsafeSvg.asset('assets/icon/icon-light.svg',
+                                  height: 70),
+                              SizedBox(
+                                width: 20,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("West Visayas State University",
+                                      style: GoogleFonts.openSans(
+                                          color: Colors.white)),
+                                  Text("Campus Tour",
+                                      style: GoogleFonts.pattaya(
+                                          color: Colors.white, fontSize: 30))
+                                ],
+                              )
+                            ],
+                          ),
+                        ],
+                      )),
+                  Positioned(
+                      top: appScreenSize.height * 0.19,
+                      child: SizedBox(
+                          width: appScreenSize.width,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              WebsafeSvg.asset('assets/icon/icon-light.svg',
-                                  height: 80),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Text("West Visayas State University",
-                                  style: GoogleFonts.openSans(
-                                      color: Colors.white)),
-                              Text("Campus Tour",
-                                  style: GoogleFonts.pattaya(
-                                      color: Colors.white, fontSize: 30))
+                              Container(
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                    color: appScaffoldBackgroundColor,
+                                    borderRadius: BorderRadius.vertical(
+                                        top: Radius.circular(36))),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text("datsdsa"),
+                                    Text("datsdsa"),
+                                  ],
+                                ),
+                              )
                             ],
-                          ))),
-                ),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(0, 20, 0, 40),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 30),
-                          child: Text(
-                            "Campuses",
-                            style: GoogleFonts.openSans(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                                color: Color(0xFF4F4F4F)),
-                          )),
-                      SizedBox(
-                        width: double.infinity,
-                        height: 220,
-                        child: ScrollSnapList(
-                          margin: EdgeInsets.symmetric(vertical: 10),
-                          onItemFocus: _onItemFocus,
-                          itemSize: 360,
-                          itemBuilder: _buildListItem,
-                          itemCount: data.length,
-                          key: sslKeyCampus,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 30),
-                          child: Text(
-                            "Academic Buildings",
-                            style: GoogleFonts.openSans(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                                color: Color(0xFF4F4F4F)),
-                          )),
-                      SizedBox(
-                        width: double.infinity,
-                        height: 220,
-                        child: ScrollSnapList(
-                          margin: EdgeInsets.symmetric(vertical: 10),
-                          onItemFocus: _onItemFocus,
-                          itemSize: 360,
-                          itemBuilder: _buildListItem,
-                          itemCount: data.length,
-                          key: sslKeyAcad,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 30),
-                          child: Text(
-                            "Administrative Buildings",
-                            style: GoogleFonts.openSans(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                                color: Color(0xFF4F4F4F)),
-                          )),
-                      SizedBox(
-                        width: double.infinity,
-                        height: 220,
-                        child: ScrollSnapList(
-                          margin: EdgeInsets.symmetric(vertical: 10),
-                          onItemFocus: _onItemFocus,
-                          itemSize: 360,
-                          itemBuilder: _buildListItem,
-                          itemCount: data.length,
-                          key: sslKeyAdmin,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 30),
-                          child: Text(
-                            "Landmarks and Symbols",
-                            style: GoogleFonts.openSans(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                                color: Color(0xFF4F4F4F)),
-                          )),
-                      SizedBox(
-                        width: double.infinity,
-                        height: 220,
-                        child: ScrollSnapList(
-                          margin: EdgeInsets.symmetric(vertical: 10),
-                          onItemFocus: _onItemFocus,
-                          itemSize: 360,
-                          itemBuilder: _buildListItem,
-                          itemCount: data.length,
-                          key: sslKeyLandmarksSymbols,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 30),
-                          child: Text(
-                            "Staff",
-                            style: GoogleFonts.openSans(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                                color: Color(0xFF4F4F4F)),
-                          )),
-                      SizedBox(
-                        width: double.infinity,
-                        height: 220,
-                        child: ScrollSnapList(
-                          margin: EdgeInsets.symmetric(vertical: 10),
-                          onItemFocus: _onItemFocus,
-                          itemSize: 360,
-                          itemBuilder: _buildListItem,
-                          itemCount: data.length,
-                          key: sslKeyStaff,
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ]),
-              Positioned(
-                  top: 30,
-                  right: appDefaultPadding,
-                  child: IconButton(
-                      icon: Icon(Feather.log_out),
-                      color: Colors.white,
-                      onPressed: () {
-                        Navigator.pushReplacementNamed(context, "/");
-                      })),
-            ],
-          ),
-        ));
+                          )))
+                ],
+              )),
+        ),
+      ]),
+    );
   }
 }
