@@ -1,22 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:wvsu_tour_app/config/app.dart';
 
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({Key key}) : super(key: key);
+class ProfileScreen extends StatefulWidget {
+  ProfileScreen({Key key}) : super(key: key);
 
   @override
+  _ProfileScreenState createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          title: Text(
-            "Profile",
-            style: GoogleFonts.openSans(color: Color(0xFF000000)),
+    Size appScreenSize = MediaQuery.of(context).size;
+    return Scaffold(
+        backgroundColor: appPrimaryColor,
+        body: SingleChildScrollView(
+          child: Container(
+            width: double.infinity,
+            decoration: BoxDecoration(color: appPrimaryColor),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.fromLTRB(appDefaultPadding,
+                      appScreenSize.height * 0.07, appDefaultPadding, 0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Profile",
+                          style: GoogleFonts.openSans(
+                              color: Colors.white, fontSize: 30)),
+                      Text(
+                        'About you',
+                        style: GoogleFonts.openSans(color: Colors.white),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
-        ),
-        body: Text("data"),
-      ),
-    );
+        ));
   }
 }

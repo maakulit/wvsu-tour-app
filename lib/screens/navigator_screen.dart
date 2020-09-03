@@ -83,15 +83,26 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
               children: [
                 Container(
                   child: Padding(
-                    padding: EdgeInsets.fromLTRB(
-                        appDefaultPadding, 45, appDefaultPadding, 20),
-                    child: AppBrandHorizontal(),
+                    padding: EdgeInsets.fromLTRB(appDefaultPadding,
+                        appScreenSize.height * 0.07, appDefaultPadding, 0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Campus Tour",
+                            style: GoogleFonts.openSans(
+                                color: Colors.white, fontSize: 30)),
+                        Text(
+                          "Hold thy banner high!",
+                          style: GoogleFonts.openSans(color: Colors.white),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ],
             ),
             Padding(
-                padding: EdgeInsets.only(top: appScreenSize.height * 0.2),
+                padding: EdgeInsets.only(top: appScreenSize.height * 0.19),
                 child: Container(
                   decoration: BoxDecoration(
                       color: Colors.white,

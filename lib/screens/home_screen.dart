@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:wvsu_tour_app/screens/announcements_screen.dart';
 import 'package:wvsu_tour_app/screens/campus_life_screen.dart';
-import 'package:wvsu_tour_app/screens/messages_screen.dart';
 import 'package:wvsu_tour_app/screens/navigator_screen.dart';
 import 'package:wvsu_tour_app/screens/profile_screen.dart';
 import 'package:wvsu_tour_app/screens/thankyou_frontliners_screen.dart';
@@ -34,6 +33,7 @@ class _HomeScreenState extends State<HomeScreen>
           backgroundColor: Colors.white,
           activeColor: Color(0xFF106DCF),
           controller: _tabController,
+          elevation: 0,
           items: [
             TabItem(
               icon: SimpleLineIcons.feed,

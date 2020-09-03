@@ -28,19 +28,27 @@ class _ThankyouFrontlinersScreenState extends State<ThankyouFrontlinersScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.2,
+                height: MediaQuery.of(context).size.height * 0.1,
+              ),
+              Text(
+                '"Salamat"',
+                style: GoogleFonts.openSans(color: Colors.white, fontSize: 40),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(
+                height: 20,
               ),
               Padding(
                 padding:
                     EdgeInsets.symmetric(horizontal: appDefaultPadding + 30.0),
                 child: Text(
-                  "Thank you frontliners! Double tap the heart to send a thank you to our modern heroes!",
+                  "A special screen for our dedicated frontliners! Thank you for all your sacrifices! Double tap the heart to send a thank you to our modern heroes!",
                   style: GoogleFonts.openSans(color: Colors.white),
                   textAlign: TextAlign.center,
                 ),
               ),
               SizedBox(
-                height: 20,
+                height: 50,
               ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
