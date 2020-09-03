@@ -76,39 +76,45 @@ class _AboutScreenState extends State<AboutScreen> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    CircularProfileAvatar(
-                                      'https://icon-library.com/images/avatar-icon-images/avatar-icon-images-4.jpg', //sets image path, it should be a URL string. default value is empty string, if path is empty it will display only initials
-                                      radius: 50, // sets radius, default 50.0
-                                      backgroundColor: Colors
-                                          .transparent, // sets background color, default Colors.white
-                                      borderWidth:
-                                          10, // sets border, default 0.0
-                                      initialsText: Text(
-                                        "AU",
-                                        style: TextStyle(
-                                            fontSize: 40, color: Colors.white),
-                                      ), // sets initials text, set your own style, default Text('')
-                                      borderColor: Colors
-                                          .transparent, // sets border color, default Colors.white
-                                      cacheImage:
-                                          true, // allow widget to cache image against provided url
-                                      onTap: () {
-                                        print('adil');
-                                      }, // sets on tap
-                                      showInitialTextAbovePicture:
-                                          true, // setting it true will show initials text above profile picture, default false
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                    Row(
                                       children: [
-                                        Text(
-                                          "User Name Here",
-                                          style: GoogleFonts.openSans(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold),
+                                        CircularProfileAvatar(
+                                          'https://icon-library.com/images/avatar-icon-images/avatar-icon-images-4.jpg', //sets image path, it should be a URL string. default value is empty string, if path is empty it will display only initials
+                                          radius:
+                                              50, // sets radius, default 50.0
+                                          backgroundColor: Colors
+                                              .transparent, // sets background color, default Colors.white
+                                          borderWidth:
+                                              10, // sets border, default 0.0
+                                          initialsText: Text(
+                                            "AU",
+                                            style: TextStyle(
+                                                fontSize: 40,
+                                                color: Colors.white),
+                                          ), // sets initials text, set your own style, default Text('')
+                                          borderColor: Colors
+                                              .transparent, // sets border color, default Colors.white
+                                          cacheImage:
+                                              true, // allow widget to cache image against provided url
+                                          onTap: () {
+                                            print('adil');
+                                          }, // sets on tap
+                                          showInitialTextAbovePicture:
+                                              true, // setting it true will show initials text above profile picture, default false
                                         ),
-                                        Text("Connected via Google"),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "User Name Here",
+                                              style: GoogleFonts.openSans(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            Text("Connected via Google"),
+                                          ],
+                                        ),
                                       ],
                                     ),
                                     SizedBox(

@@ -32,7 +32,7 @@ class _CampusLifeScreenState extends State<CampusLifeScreen> {
   Widget _buildListItem(BuildContext context, int index) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 10),
-      width: 200,
+      width: 300,
       child: Material(
         borderRadius: appDefaultBorderRadius,
         color: Colors.white,
@@ -98,7 +98,7 @@ class _CampusLifeScreenState extends State<CampusLifeScreen> {
                       GoogleFonts.openSans(color: Colors.white, fontSize: 20),
                 )),
             SizedBox(
-              height: 300,
+              height: appScreenSize.height * 0.5,
               width: double.infinity,
               child: ScrollSnapList(
                 initialIndex: 0,

@@ -2,6 +2,7 @@ import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:wvsu_tour_app/components/app_brand_horizontal.dart';
 import 'package:wvsu_tour_app/config/app.dart';
 
 class ThankyouFrontlinersScreen extends StatefulWidget {
@@ -15,6 +16,7 @@ class ThankyouFrontlinersScreen extends StatefulWidget {
 class _ThankyouFrontlinersScreenState extends State<ThankyouFrontlinersScreen> {
   @override
   Widget build(BuildContext context) {
+    Size appScreenSize = MediaQuery.of(context).size;
     return Container(
       decoration: BoxDecoration(
         color: appPrimaryColor,
@@ -27,23 +29,26 @@ class _ThankyouFrontlinersScreenState extends State<ThankyouFrontlinersScreen> {
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.1,
               ),
-              Text(
-                '"Salamat"',
-                style: GoogleFonts.openSans(color: Colors.white, fontSize: 40),
-                textAlign: TextAlign.center,
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  AppBrandHorizontal(),
+                ],
               ),
               SizedBox(
-                height: 20,
+                height: appScreenSize.height * 0.1,
               ),
               Padding(
                 padding:
-                    EdgeInsets.symmetric(horizontal: appDefaultPadding + 30.0),
+                    EdgeInsets.symmetric(horizontal: appScreenSize.width * 0.1),
                 child: Text(
-                  "A special screen for our dedicated frontliners! Thank you for all your sacrifices! Double tap the heart to send a thank you to our modern heroes!",
+                  "A special screen for our dedicated frontliners! Thank you for all your sacrifices!",
                   style: GoogleFonts.openSans(color: Colors.white),
                   textAlign: TextAlign.center,
                 ),
@@ -69,33 +74,36 @@ class _ThankyouFrontlinersScreenState extends State<ThankyouFrontlinersScreen> {
                 ],
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.2,
+                height: 20,
                 width: double.infinity,
               ),
-            ],
-          ),
-          Positioned(
-            left: MediaQuery.of(context).size.width * 0.33,
-            top: MediaQuery.of(context).size.height * 0.6,
-            child: AvatarGlow(
-              endRadius: 60.0,
-              child: Material(
-                elevation: 0,
-                shape: CircleBorder(),
-                child: CircleAvatar(
-                  backgroundColor: Colors.grey[100],
-                  child: IconButton(
-                      icon: Icon(
-                        Icons.favorite,
-                        color: Colors.red,
-                        size: 30,
-                      ),
-                      onPressed: () {}),
-                  radius: 30.0,
+              AvatarGlow(
+                endRadius: 60.0,
+                child: Material(
+                  elevation: 0,
+                  shape: CircleBorder(),
+                  child: CircleAvatar(
+                    backgroundColor: Colors.grey[100],
+                    child: IconButton(
+                        icon: Icon(
+                          Icons.favorite,
+                          color: Colors.red,
+                          size: 30,
+                        ),
+                        onPressed: () {}),
+                    radius: 30.0,
+                  ),
                 ),
               ),
-            ),
-          )
+              Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 40),
+                  child: Text(
+                    "Double tap the heart to send a thank you to our modern heroes!",
+                    style: GoogleFonts.openSans(color: Colors.white),
+                    textAlign: TextAlign.center,
+                  )),
+            ],
+          ),
         ],
       ),
     );

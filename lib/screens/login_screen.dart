@@ -16,6 +16,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
+    Size appScreenSize = MediaQuery.of(context).size;
     return Container(
       child: Container(
           decoration: BoxDecoration(
@@ -41,14 +42,16 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(
-                          width: MediaQuery.of(context).size.width,
+                          width: appScreenSize.width,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
-                                padding: EdgeInsets.all(appDefaultPadding + 30),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: appScreenSize.width * 0.15),
                                 child: Container(
                                     decoration: BoxDecoration(
                                       color: Colors.white,
@@ -139,21 +142,21 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         Padding(
-                            padding: EdgeInsets.fromLTRB(40, 0, 40, 0),
+                            padding: EdgeInsets.all(40),
                             child: RichText(
                                 text: TextSpan(children: [
                               TextSpan(
                                   text:
-                                      "Taga-West! By creating or logging into an account, you are agreeing with our. ",
+                                      "Taga-West! By creating or logging into an account, you are agreeing with our ",
                                   style: GoogleFonts.openSans(
                                       color: Colors.white)),
                               TextSpan(
-                                  text: "Privacy Policy",
+                                  text: "Privacy Policy.",
                                   style: GoogleFonts.openSans(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold))
                             ])))
-                      ])
+                      ]),
                 ],
               ))),
     );

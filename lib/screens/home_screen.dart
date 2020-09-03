@@ -37,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen>
           elevation: 0,
           items: [
             TabItem(
-              icon: SimpleLineIcons.feed,
+              icon: SimpleLineIcons.bell,
             ),
             TabItem(
               icon: SimpleLineIcons.graduation,
