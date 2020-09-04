@@ -1,9 +1,15 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:wvsu_tour_app/config/app.dart';
+import 'package:wvsu_tour_app/firebase/auth.dart';
+import 'package:wvsu_tour_app/screens/auth_screen.dart';
 import 'package:wvsu_tour_app/screens/home_screen.dart';
 import 'package:wvsu_tour_app/screens/login_screen.dart';
+import 'package:wvsu_tour_app/screens/root_screen.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -13,7 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         // initialRoute: "/",
-        home: LoginScreen(),
+        home: AuthScreen(),
         theme: ThemeData(
           primaryColor: appPrimaryColor,
           scaffoldBackgroundColor: appScaffoldBackgroundColor,
@@ -22,6 +28,7 @@ class MyApp extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         routes: <String, WidgetBuilder>{
+          '/login': (BuildContext context) => new LoginScreen(),
           '/home': (BuildContext context) => new HomeScreen(),
         });
   }

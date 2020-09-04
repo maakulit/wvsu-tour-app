@@ -1,22 +1,84 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:wvsu_tour_app/config/app.dart';
+import 'package:wvsu_tour_app/firebase/auth.dart';
+import 'package:wvsu_tour_app/screens/facebook_auth_screen.dart';
 
 class LoginScreen extends StatefulWidget {
-  LoginScreen({Key key}) : super(key: key);
+  LoginScreen({Key key, this.auth}) : super(key: key);
+
+  final BaseAuth auth;
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     Size appScreenSize = MediaQuery.of(context).size;
+
+    void _showSnackbar(String message) {
+      _scaffoldKey.currentState
+          .showSnackBar(new SnackBar(content: new Text(message)));
+    }
+
+    _loginWithFacebook() async {
+      UserCredential userCredential;
+      String appid = "618815765675430";
+      String redirectUri =
+          "https://www.facebook.com/connect/login_success.html";
+      String result = await Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => FacebookAuthWeb(
+                    selectedUrl:
+                        'https://www.facebook.com/dialog/oauth?client_id=$appid&redirect_uri=$redirectUri&response_type=token&scope=email,public_profile,',
+                  ),
+              maintainState: true));
+      if (result != null) {
+        try {
+          final facebookAuthCred = FacebookAuthProvider.credential(result);
+          userCredential =
+              await widget.auth.signInWithCredentials(facebookAuthCred);
+          _showSnackbar("Logged in with Facebook");
+          print(userCredential.user.uid);
+        } catch (e) {
+          print(e);
+          _showSnackbar("Failed to sign in with Facebook: ${e}");
+        }
+      }
+    }
+
+    void _loginInWithGoogle() async {
+      try {
+        UserCredential userCredential;
+
+        final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
+        final GoogleSignInAuthentication googleAuth =
+            await googleUser.authentication;
+        final GoogleAuthCredential googleAuthCredential =
+            GoogleAuthProvider.credential(
+          accessToken: googleAuth.accessToken,
+          idToken: googleAuth.idToken,
+        );
+        userCredential =
+            await widget.auth.signInWithCredentials(googleAuthCredential);
+        _showSnackbar("Logged in with Google");
+        print(userCredential.user.uid);
+      } catch (e) {
+        print(e);
+        _showSnackbar("Failed to sign in with Google: ${e}");
+      }
+    }
+
     return Container(
       child: Container(
           decoration: BoxDecoration(
@@ -26,6 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   alignment: Alignment.bottomCenter,
                   image: AssetImage('assets/images/login-bg.png'))),
           child: Scaffold(
+              key: _scaffoldKey,
               appBar: AppBar(
                 elevation: 0,
                 backgroundColor: Colors.transparent,
@@ -88,9 +151,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                 padding: EdgeInsets.fromLTRB(
                                                     25, 15, 25, 15),
                                                 onPressed: () {
-                                                  Navigator
-                                                      .pushReplacementNamed(
-                                                          context, "/home");
+                                                  _loginWithFacebook();
                                                 },
                                                 icon: Icon(SimpleLineIcons
                                                     .social_facebook),
@@ -117,9 +178,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                                 padding: EdgeInsets.fromLTRB(
                                                     25, 15, 25, 15),
                                                 onPressed: () {
-                                                  Navigator
-                                                      .pushReplacementNamed(
-                                                          context, "/home");
+                                                  // widget.auth.signOut();
+                                                  _loginInWithGoogle();
                                                 },
                                                 icon: Icon(SimpleLineIcons
                                                     .social_google),

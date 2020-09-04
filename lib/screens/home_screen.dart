@@ -1,15 +1,17 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:wvsu_tour_app/firebase/auth.dart';
 import 'package:wvsu_tour_app/screens/about_screen.dart';
 import 'package:wvsu_tour_app/screens/announcements_screen.dart';
 import 'package:wvsu_tour_app/screens/campus_life_screen.dart';
 import 'package:wvsu_tour_app/screens/navigator_screen.dart';
-import 'package:wvsu_tour_app/screens/profile_screen.dart';
 import 'package:wvsu_tour_app/screens/thankyou_frontliners_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key key}) : super(key: key);
+  HomeScreen({Key key, this.auth}) : super(key: key);
+
+  final BaseAuth auth;
 
   @override
   _HomeScreenState createState() => _HomeScreenState();

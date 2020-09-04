@@ -38,10 +38,12 @@ dependencies:
   url_launcher: ^5.5.2
   share: ^0.6.5
   line_icons: ^0.2.0
+  flutter_webview_plugin: ^0.3.11
   sembast: ^2.4.7+6
   circular_profile_avatar: ^1.0.6
   avatar_glow: ^1.2.0
   bubble_tab_indicator: "^0.1.4"
+  google_sign_in: ^4.5.3
 
 flutter_icons:
   android: "launcher_icon"
