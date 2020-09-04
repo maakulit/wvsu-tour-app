@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:wvsu_tour_app/firebase/auth.dart';
+import 'package:wvsu_tour_app/screens/auth_screen.dart';
 import 'package:wvsu_tour_app/screens/home_screen.dart';
-import 'package:wvsu_tour_app/screens/login_screen.dart';
 
 class RootScreen extends StatefulWidget {
   RootScreen({this.auth});
@@ -27,7 +27,7 @@ class _RootScreenState extends State<RootScreen> {
         if (snapshot.hasData) {
           return new HomeScreen();
         } else {
-          return new LoginScreen();
+          return new AuthScreen();
         }
       },
     );

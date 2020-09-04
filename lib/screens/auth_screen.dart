@@ -1,17 +1,23 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 import 'package:wvsu_tour_app/config/app.dart';
+import 'package:wvsu_tour_app/firebase/auth.dart';
+import 'package:wvsu_tour_app/screens/facebook_auth_screen.dart';
 
 class AuthScreen extends StatefulWidget {
-  AuthScreen({Key key}) : super(key: key);
-
+  AuthScreen({Key key, this.auth}) : super(key: key);
+  final BaseAuth auth;
   @override
   _AuthScreenState createState() => _AuthScreenState();
 }
 
 class _AuthScreenState extends State<AuthScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
   int _pageState = 0;
 
   var _backgroundColor = Colors.white;
@@ -28,6 +34,59 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   void initState() {
     super.initState();
+  }
+
+  void _showSnackbar(String message) {
+    _scaffoldKey.currentState
+        .showSnackBar(new SnackBar(content: new Text(message)));
+  }
+
+  _loginWithFacebook() async {
+    UserCredential userCredential;
+    String appid = "618815765675430";
+    String redirectUri = "https://www.facebook.com/connect/login_success.html";
+    String result = await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => FacebookAuthWeb(
+                  selectedUrl:
+                      'https://www.facebook.com/dialog/oauth?client_id=$appid&redirect_uri=$redirectUri&response_type=token&scope=email,public_profile,',
+                ),
+            maintainState: true));
+    if (result != null) {
+      try {
+        final facebookAuthCred = FacebookAuthProvider.credential(result);
+        userCredential =
+            await widget.auth.signInWithCredentials(facebookAuthCred);
+        _showSnackbar("Logged in with Facebook");
+        print(userCredential.user.uid);
+      } catch (e) {
+        print(e);
+        _showSnackbar("Failed to sign in with Facebook: ${e}");
+      }
+    }
+  }
+
+  void _loginWithGoogle() async {
+    try {
+      UserCredential userCredential;
+
+      final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+      final GoogleAuthCredential googleAuthCredential =
+          GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+      userCredential =
+          await widget.auth.signInWithCredentials(googleAuthCredential);
+      _showSnackbar("Logged in with Google");
+      print(userCredential.user.uid);
+    } catch (e) {
+      print(e);
+      _showSnackbar("Failed to sign in with Google: ${e}");
+    }
   }
 
   @override
@@ -196,37 +255,9 @@ class _AuthScreenState extends State<AuthScreen> {
                               color: Color(0xFF075BB3),
                               padding: EdgeInsets.fromLTRB(25, 15, 25, 15),
                               onPressed: () {
-                                setState(() {
-                                  _pageState != 0
-                                      ? _pageState = 0
-                                      : _pageState = 1;
-                                });
-
-                                setState(() {
-                                  _appIcon = Container(
-                                      key: ValueKey(2),
-                                      child: Column(
-                                        children: [
-                                          WebsafeSvg.asset(
-                                              "assets/icon/icon-light.svg",
-                                              height: appIconSize),
-                                          SizedBox(height: 20),
-                                          Text(
-                                            "West Visayas State University",
-                                            style: GoogleFonts.openSans(
-                                                color: Colors.white),
-                                          ),
-                                          Text("Campus Tour",
-                                              style: GoogleFonts.pattaya(
-                                                  color: Colors.white,
-                                                  fontSize: 30))
-                                        ],
-                                      ));
-                                });
-
-                                print(_pageState);
+                                _loginWithFacebook();
                               },
-                              icon: Icon(SimpleLineIcons.social_google),
+                              icon: Icon(SimpleLineIcons.social_facebook),
                               label: Text(
                                 "Login with Facebook",
                                 style: GoogleFonts.openSans(
@@ -246,37 +277,9 @@ class _AuthScreenState extends State<AuthScreen> {
                               color: Color(0xFF075BB3),
                               padding: EdgeInsets.fromLTRB(25, 15, 25, 15),
                               onPressed: () {
-                                setState(() {
-                                  _pageState != 0
-                                      ? _pageState = 0
-                                      : _pageState = 1;
-                                });
-
-                                setState(() {
-                                  _appIcon = Container(
-                                      key: ValueKey(2),
-                                      child: Column(
-                                        children: [
-                                          WebsafeSvg.asset(
-                                              "assets/icon/icon-light.svg",
-                                              height: appIconSize),
-                                          SizedBox(height: 20),
-                                          Text(
-                                            "West Visayas State University",
-                                            style: GoogleFonts.openSans(
-                                                color: Colors.white),
-                                          ),
-                                          Text("Campus Tour",
-                                              style: GoogleFonts.pattaya(
-                                                  color: Colors.white,
-                                                  fontSize: 30))
-                                        ],
-                                      ));
-                                });
-
-                                print(_pageState);
+                                _loginWithGoogle();
                               },
-                              icon: Icon(SimpleLineIcons.social_facebook),
+                              icon: Icon(SimpleLineIcons.social_google),
                               label: Text(
                                 "Login with Google",
                                 style: GoogleFonts.openSans(
@@ -424,7 +427,9 @@ class _AuthScreenState extends State<AuthScreen> {
                       child: FlatButton.icon(
                           color: Color(0xFF075BB3),
                           padding: EdgeInsets.fromLTRB(25, 15, 25, 15),
-                          onPressed: () {},
+                          onPressed: () {
+                            _loginWithGoogle();
+                          },
                           icon: Icon(SimpleLineIcons.social_google),
                           label: Text(
                             "Continue with Google",

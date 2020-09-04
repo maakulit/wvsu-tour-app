@@ -4,7 +4,6 @@ import 'package:wvsu_tour_app/config/app.dart';
 import 'package:wvsu_tour_app/firebase/auth.dart';
 import 'package:wvsu_tour_app/screens/auth_screen.dart';
 import 'package:wvsu_tour_app/screens/home_screen.dart';
-import 'package:wvsu_tour_app/screens/login_screen.dart';
 import 'package:wvsu_tour_app/screens/root_screen.dart';
 
 Future<void> main() async {
@@ -18,8 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        // initialRoute: "/",
-        home: AuthScreen(),
+        home: RootScreen(auth: new Auth()),
         theme: ThemeData(
           primaryColor: appPrimaryColor,
           scaffoldBackgroundColor: appScaffoldBackgroundColor,
@@ -28,7 +26,7 @@ class MyApp extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         routes: <String, WidgetBuilder>{
-          '/login': (BuildContext context) => new LoginScreen(),
+          '/login': (BuildContext context) => new AuthScreen(auth: new Auth()),
           '/home': (BuildContext context) => new HomeScreen(),
         });
   }
