@@ -20,7 +20,10 @@ class _AuthScreenState extends State<AuthScreen> {
 
   double _loginOpacity = 1;
   double _loginYOffset = 0;
+  double _signUpYOffset = 0;
   double windowWidth = 0;
+  double _loginWidth = 0;
+  double _loginXOffset = 0;
 
   @override
   void initState() {
@@ -51,15 +54,25 @@ class _AuthScreenState extends State<AuthScreen> {
           ),
         );
         _loginYOffset = appScreenSize.height;
+        _signUpYOffset = appScreenSize.height;
+        _loginWidth = appScreenSize.width;
+        _loginXOffset = 0;
         break;
       case 1:
         _backgroundColor = appPrimaryColor;
         _loginOpacity = 1;
-
         _loginYOffset = appScreenSize.height * 0.34;
+        _signUpYOffset = appScreenSize.height;
+        _loginWidth = appScreenSize.width;
+        _loginXOffset = 0;
         break;
       case 2:
-        _backgroundColor = Color(0xFFBD34C59);
+        _loginOpacity = 0.9;
+        _loginYOffset = appScreenSize.height * 0.35;
+        _signUpYOffset = appScreenSize.height * 0.38;
+        _backgroundColor = appPrimaryColor;
+        _loginWidth = appScreenSize.width - 30;
+        _loginXOffset = 10;
         break;
     }
 
@@ -147,10 +160,11 @@ class _AuthScreenState extends State<AuthScreen> {
         ),
         AnimatedContainer(
             padding: EdgeInsets.all(32),
-            width: double.infinity,
+            width: _loginWidth == 0 ? appScreenSize.width : _loginWidth,
             curve: Curves.fastLinearToSlowEaseIn,
             duration: Duration(milliseconds: 1000),
-            transform: Matrix4.translationValues(0, _loginYOffset, 1),
+            transform:
+                Matrix4.translationValues(_loginXOffset, _loginYOffset, 1),
             decoration: BoxDecoration(
                 color: Colors.white.withOpacity(_loginOpacity),
                 borderRadius: BorderRadius.only(
@@ -282,33 +296,10 @@ class _AuthScreenState extends State<AuthScreen> {
                             padding: EdgeInsets.fromLTRB(25, 16, 25, 16),
                             onPressed: () {
                               setState(() {
-                                _pageState != 0
-                                    ? _pageState = 0
+                                _pageState != 2
+                                    ? _pageState = 2
                                     : _pageState = 1;
                               });
-
-                              setState(() {
-                                _appIcon = Container(
-                                    key: ValueKey(2),
-                                    child: Column(
-                                      children: [
-                                        WebsafeSvg.asset(
-                                            "assets/icon/icon-light.svg",
-                                            height: appIconSize),
-                                        SizedBox(height: 20),
-                                        Text(
-                                          "West Visayas State University",
-                                          style: GoogleFonts.openSans(
-                                              color: Colors.white),
-                                        ),
-                                        Text("Campus Tour",
-                                            style: GoogleFonts.pattaya(
-                                                color: Colors.white,
-                                                fontSize: 30))
-                                      ],
-                                    ));
-                              });
-
                               print(_pageState);
                             },
                             child: Text(
@@ -328,7 +319,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         text: TextSpan(children: [
                       TextSpan(
                           text:
-                              "Taga-West! By creating or logging into an account, you are agreeing with our ",
+                              "Taga-West! By logging into an account, you are agreeing with our ",
                           style: GoogleFonts.openSans(color: appTextBodyColor)),
                       TextSpan(
                           text: "Terms and Conditions",
@@ -380,7 +371,119 @@ class _AuthScreenState extends State<AuthScreen> {
                       },
                     ))
               ],
-            ))
+            )),
+        AnimatedContainer(
+          padding: EdgeInsets.all(32),
+          width: double.infinity,
+          curve: Curves.fastLinearToSlowEaseIn,
+          duration: Duration(milliseconds: 1000),
+          transform: Matrix4.translationValues(0, _signUpYOffset, 2),
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(25), topRight: Radius.circular(25))),
+          child: Container(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  "Create an Account",
+                  style: GoogleFonts.openSans(fontSize: 27),
+                ),
+                Text(
+                  "Select an option to create a new account.",
+                  style: GoogleFonts.openSans(),
+                ),
+                SizedBox(height: 20),
+                Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: FlatButton.icon(
+                          color: Color(0xFF075BB3),
+                          padding: EdgeInsets.fromLTRB(25, 15, 25, 15),
+                          onPressed: () {},
+                          icon: Icon(SimpleLineIcons.social_facebook),
+                          label: Text(
+                            "Continue with Facebook",
+                            style: GoogleFonts.openSans(
+                                color: Colors.white, fontSize: 15),
+                          ),
+                          textColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(23)))),
+                    )),
+                Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: FlatButton.icon(
+                          color: Color(0xFF075BB3),
+                          padding: EdgeInsets.fromLTRB(25, 15, 25, 15),
+                          onPressed: () {},
+                          icon: Icon(SimpleLineIcons.social_google),
+                          label: Text(
+                            "Continue with Google",
+                            style: GoogleFonts.openSans(
+                                color: Colors.white, fontSize: 15),
+                          ),
+                          textColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(23)))),
+                    )),
+                Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: FlatButton(
+                        padding: EdgeInsets.fromLTRB(25, 16, 25, 16),
+                        onPressed: () {
+                          setState(() {
+                            _pageState == 2 ? _pageState = 1 : _pageState = 0;
+                          });
+                          print(_pageState);
+                        },
+                        child: Text(
+                          "Back to Login",
+                          style: GoogleFonts.openSans(
+                              color: appPrimaryColor, fontSize: 15),
+                        ),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(23),
+                            side: BorderSide(color: appPrimaryColor)),
+                      ),
+                    )),
+                SizedBox(
+                  height: 10,
+                ),
+                RichText(
+                    text: TextSpan(children: [
+                  TextSpan(
+                      text:
+                          "By creating an account, you are agreeing with our ",
+                      style: GoogleFonts.openSans(color: appTextBodyColor)),
+                  TextSpan(
+                      text: "Terms and Conditions",
+                      style: GoogleFonts.openSans(
+                          fontWeight: FontWeight.bold,
+                          color: appTextBodyColor)),
+                  TextSpan(
+                      text: " and ",
+                      style: GoogleFonts.openSans(color: appTextBodyColor)),
+                  TextSpan(
+                      text: "Privacy Policy.",
+                      style: GoogleFonts.openSans(
+                          fontWeight: FontWeight.bold, color: appTextBodyColor))
+                ]))
+              ],
+            ),
+          ),
+        )
       ],
     ));
   }
