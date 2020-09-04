@@ -29,6 +29,7 @@ class _HomeScreenState extends State<HomeScreen>
 
   @override
   Widget build(BuildContext context) {
+    Auth appAuth = new Auth();
     return Scaffold(
         backgroundColor: Color(0xFFF3F3F3),
         bottomNavigationBar: ConvexAppBar(
@@ -60,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen>
           new CampusLifeScreen(),
           new NavigatorScreen(),
           new ThankyouFrontlinersScreen(),
-          new AboutScreen(),
+          new AboutScreen(auth: appAuth),
         ]));
   }
 }

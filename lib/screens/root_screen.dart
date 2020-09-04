@@ -27,7 +27,7 @@ class _RootScreenState extends State<RootScreen> {
         if (snapshot.hasData) {
           return new HomeScreen();
         } else {
-          return new AuthScreen();
+          return new AuthScreen(auth: widget.auth);
         }
       },
     );

@@ -16,8 +16,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    Auth appAuth = new Auth();
     return MaterialApp(
-        home: RootScreen(auth: new Auth()),
+        home: new RootScreen(auth: appAuth),
         theme: ThemeData(
           primaryColor: appPrimaryColor,
           scaffoldBackgroundColor: appScaffoldBackgroundColor,
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         routes: <String, WidgetBuilder>{
-          '/login': (BuildContext context) => new AuthScreen(auth: new Auth()),
+          '/login': (BuildContext context) => new AuthScreen(auth: appAuth),
           '/home': (BuildContext context) => new HomeScreen(),
         });
   }

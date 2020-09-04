@@ -4,10 +4,11 @@ import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 import 'package:wvsu_tour_app/config/app.dart';
+import 'package:wvsu_tour_app/firebase/auth.dart';
 
 class AboutScreen extends StatefulWidget {
-  AboutScreen({Key key}) : super(key: key);
-
+  AboutScreen({Key key, this.auth}) : super(key: key);
+  BaseAuth auth;
   @override
   _AboutScreenState createState() => _AboutScreenState();
 }
@@ -124,8 +125,7 @@ class _AboutScreenState extends State<AboutScreen> {
                                         tooltip: "Logout",
                                         icon: Icon(Feather.log_out),
                                         onPressed: () {
-                                          Navigator.pushReplacementNamed(
-                                              context, "/");
+                                          widget.auth.signOut();
                                         })
                                   ],
                                 )
