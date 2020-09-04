@@ -336,28 +336,35 @@ class _AuthScreenState extends State<AuthScreen> {
                         SizedBox(
                           height: 10,
                         ),
-                        RichText(
-                            text: TextSpan(children: [
-                          TextSpan(
-                              text:
-                                  "Taga-West! By logging into an account, you are agreeing with our ",
-                              style: GoogleFonts.openSans(
-                                  color: appTextBodyColor)),
-                          TextSpan(
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(context, "/legal");
+                          },
+                          child: RichText(
+                              text: TextSpan(children: [
+                            TextSpan(
+                                text:
+                                    "Taga-West! By logging into an account, you are agreeing with our ",
+                                style: GoogleFonts.openSans(
+                                    color: appTextBodyColor)),
+                            TextSpan(
                               text: "Terms and Conditions",
                               style: GoogleFonts.openSans(
                                   fontWeight: FontWeight.bold,
-                                  color: appTextBodyColor)),
-                          TextSpan(
-                              text: " and ",
-                              style: GoogleFonts.openSans(
-                                  color: appTextBodyColor)),
-                          TextSpan(
+                                  color: appTextBodyColor),
+                            ),
+                            TextSpan(
+                                text: " and ",
+                                style: GoogleFonts.openSans(
+                                    color: appTextBodyColor)),
+                            TextSpan(
                               text: "Privacy Policy.",
                               style: GoogleFonts.openSans(
                                   fontWeight: FontWeight.bold,
-                                  color: appTextBodyColor))
-                        ]))
+                                  color: appTextBodyColor),
+                            ),
+                          ])),
+                        )
                       ],
                     ),
                     Positioned(
@@ -495,26 +502,35 @@ class _AuthScreenState extends State<AuthScreen> {
                     SizedBox(
                       height: 10,
                     ),
-                    RichText(
-                        text: TextSpan(children: [
-                      TextSpan(
-                          text:
-                              "By creating an account, you are agreeing with our ",
-                          style: GoogleFonts.openSans(color: appTextBodyColor)),
-                      TextSpan(
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, "/legal");
+                      },
+                      child: RichText(
+                          text: TextSpan(children: [
+                        TextSpan(
+                            text:
+                                "By creating an account, you are agreeing with our ",
+                            style:
+                                GoogleFonts.openSans(color: appTextBodyColor)),
+                        TextSpan(
                           text: "Terms and Conditions",
                           style: GoogleFonts.openSans(
                               fontWeight: FontWeight.bold,
-                              color: appTextBodyColor)),
-                      TextSpan(
-                          text: " and ",
-                          style: GoogleFonts.openSans(color: appTextBodyColor)),
-                      TextSpan(
+                              color: appTextBodyColor),
+                        ),
+                        TextSpan(
+                            text: " and ",
+                            style:
+                                GoogleFonts.openSans(color: appTextBodyColor)),
+                        TextSpan(
                           text: "Privacy Policy.",
                           style: GoogleFonts.openSans(
                               fontWeight: FontWeight.bold,
-                              color: appTextBodyColor))
-                    ]))
+                              color: appTextBodyColor),
+                        )
+                      ])),
+                    )
                   ],
                 ),
               ),

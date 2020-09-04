@@ -4,6 +4,7 @@ import 'package:wvsu_tour_app/config/app.dart';
 import 'package:wvsu_tour_app/firebase/auth.dart';
 import 'package:wvsu_tour_app/screens/auth_screen.dart';
 import 'package:wvsu_tour_app/screens/home_screen.dart';
+import 'package:wvsu_tour_app/screens/legal_screen.dart';
 import 'package:wvsu_tour_app/screens/root_screen.dart';
 
 Future<void> main() async {
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
         routes: <String, WidgetBuilder>{
           '/login': (BuildContext context) => new AuthScreen(auth: appAuth),
           '/home': (BuildContext context) => new HomeScreen(),
+          '/legal': (BuildContext context) => new LegalScreen(),
         });
   }
 }
