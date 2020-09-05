@@ -20,7 +20,7 @@ Flutter supports both Android and iOS and the app is planned to be deployed on b
 
 ### Content Management
 
-[Strapi](https://strapi.io/) is used for the app contents like history and images. Please head over to our custom [content management system](https://wvsu-tour-cms.herokuapp.com/) to edit the data.	
+[Strapi](https://strapi.io/) is used for the app contents like history and images. Please head over to our custom [content management system](http://128.199.253.64:1337/) to edit the data.	
 
 
 
