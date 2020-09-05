@@ -94,6 +94,9 @@ class _AuthScreenState extends State<AuthScreen> {
       );
       userCredential =
           await widget.auth.signInWithCredentials(googleAuthCredential);
+      setState(() {
+        _loading = true;
+      });
       _showSnackbar("Logged in with Google");
       print(userCredential.user.uid);
     } catch (e) {
@@ -263,7 +266,7 @@ class _AuthScreenState extends State<AuthScreen> {
                             padding: EdgeInsets.symmetric(
                                 horizontal: 20, vertical: 10),
                             child: AppPrimaryButton(
-                              onPressed: () => _loginWithFacebook,
+                              onPressed: () => _loginWithFacebook(),
                               text: "Login with Facebook",
                               icon: SimpleLineIcons.social_facebook,
                             )),
@@ -275,7 +278,7 @@ class _AuthScreenState extends State<AuthScreen> {
                               child: AppPrimaryButton(
                                 text: "Login with Google",
                                 icon: SimpleLineIcons.social_google,
-                                onPressed: () => _loginWithGoogle,
+                                onPressed: () => _loginWithGoogle(),
                               )),
                         ),
                         Padding(
@@ -390,7 +393,7 @@ class _AuthScreenState extends State<AuthScreen> {
                             EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                         child: AppPrimaryButton(
                           text: "Continue with Google",
-                          onPressed: () => _loginWithGoogle,
+                          onPressed: () => _loginWithGoogle(),
                         )),
                     Padding(
                         padding:

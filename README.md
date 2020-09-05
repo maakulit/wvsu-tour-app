@@ -1,16 +1,29 @@
-# wvsu_tour_app
+<img src="assets/icon/icon.svg" style="width: 200px; height: 200px; margin: 0"/>
 
-A new Flutter project.
+# WVSU Campus Tour App
 
-## Getting Started
+WVSU Campus Tour is a mobile app developed by the volunteers from the [College of Information and Communications Technology](https://cictwvsu.com/), Main Campus. It aims to mitigate the effect of the pandemic for students who want to get more familiar with our [University](https://wvsu.edu.ph).
 
-This project is a starting point for a Flutter application.
+------
 
-A few resources to get you started if this is your first Flutter project:
+## Contributions
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+You can help us develop our app! If you want to add contents, request features or found a bug please submit an [issue](https://github.com/wvsu-cict-code/wvsu-tour-app/issues), you may also contact our CICT faculty or email your concern at cictapps@wvsu.edu.ph. Student contributions are welcome!
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Architecture
+
+This campus tour app is being developed using [Flutter](https://flutter.dev/) and utilizes different cloud services to properly work.
+<br />
+<img src="arch.svg"/>
+<br />
+Flutter supports both Android and iOS and the app is planned to be deployed on both platforms.
+
+### Content Management
+
+[Strapi](https://strapi.io/) is used for the app contents like history and images. Please head over to our custom [content management system](https://wvsu-tour-cms.herokuapp.com/) to edit the data.	
+
+
+
+### The App Icon
+
+The app icon is a monogram of characters "W" and "V" for West Visayas. The "W" is curved like a road and "V" serves as a marker pin.
