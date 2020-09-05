@@ -1,4 +1,4 @@
-<img src="assets/icon/icon.svg" style="width: 200px; height: 200px; margin: 0"/>
+<img src="app_icon.svg"/>
 
 # WVSU Campus Tour App
 
