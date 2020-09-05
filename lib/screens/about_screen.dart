@@ -1,47 +1,21 @@
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 import 'package:wvsu_tour_app/config/app.dart';
-import 'package:wvsu_tour_app/firebase/auth.dart';
 
 class AboutScreen extends StatefulWidget {
-  AboutScreen({Key key, this.auth}) : super(key: key);
-  BaseAuth auth;
+  AboutScreen({Key key}) : super(key: key);
+
   @override
   _AboutScreenState createState() => _AboutScreenState();
 }
 
 class _AboutScreenState extends State<AboutScreen> {
-  String _userPhotoUrl =
-      "https://icon-library.com/images/avatar-icon-images/avatar-icon-images-4.jpg";
-  User _user;
-
-  @override
-  void initState() {
-    super.initState();
-    widget.auth.getCurrentUser().then((user) => {
-          this.setState(() {
-            _user = user;
-            _userPhotoUrl = user.photoURL;
-          })
-        });
-  }
-
   @override
   Widget build(BuildContext context) {
     Size appScreenSize = MediaQuery.of(context).size;
-    _launchURL(String url) async {
-      if (await canLaunch(url)) {
-        await launch(url);
-      } else {
-        print('Could not launch $url');
-      }
-    }
-
     return Scaffold(
         backgroundColor: appPrimaryColor,
         body: SingleChildScrollView(
@@ -102,49 +76,64 @@ class _AboutScreenState extends State<AboutScreen> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Row(
-                                      children: [
-                                        CircularProfileAvatar(
-                                          _userPhotoUrl,
-                                          radius:
-                                              50, // sets radius, default 50.0
-                                          backgroundColor: Colors.grey[200],
-                                          borderWidth:
-                                              10, // sets border, default 0.0
-                                          borderColor: Colors
-                                              .transparent, // sets border color, default Colors.white
-                                          cacheImage:
-                                              true, // allow widget to cache image against provided url
-                                          onTap: () {
-                                            print('adil');
-                                          }, // sets on tap
-                                          showInitialTextAbovePicture:
-                                              true, // setting it true will show initials text above profile picture, default false
-                                        ),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              "User Name Here",
-                                              style: GoogleFonts.openSans(
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            Text("Connected via Google"),
-                                          ],
-                                        ),
-                                      ],
+                                    Expanded(
+                                      flex: 5,
+                                      child: CircularProfileAvatar(
+                                        'https://icon-library.com/images/avatar-icon-images/avatar-icon-images-4.jpg', //sets image path, it should be a URL string. default value is empty string, if path is empty it will display only initials
+                                        radius: 50, // sets radius, default 50.0
+                                        backgroundColor: Colors
+                                            .transparent, // sets background color, default Colors.white
+                                        borderWidth:
+                                            10, // sets border, default 0.0
+                                        initialsText: Text(
+                                          "AU",
+                                          style: TextStyle(
+                                              fontSize: 40,
+                                              color: Colors.white),
+                                        ), // sets initials text, set your own style, default Text('')
+                                        borderColor: Colors
+                                            .transparent, // sets border color, default Colors.white
+                                        cacheImage:
+                                            true, // allow widget to cache image against provided url
+                                        onTap: () {
+                                          print('adil');
+                                        }, // sets on tap
+                                        showInitialTextAbovePicture:
+                                            true, // setting it true will show initials text above profile picture, default false
+                                      ),
                                     ),
-                                    SizedBox(
-                                      width: 20,
+                                    Expanded(
+                                      flex: 6,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "User Name Here",
+                                            style: GoogleFonts.openSans(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          Text("Connected via Google"),
+                                        ],
+                                      ),
                                     ),
-                                    IconButton(
-                                        tooltip: "Logout",
-                                        icon: Icon(Feather.log_out),
-                                        onPressed: () {
-                                          widget.auth.signOut();
-                                        })
+                                    Expanded(
+                                      flex: 1,
+                                      child: SizedBox(
+                                        width: 10,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: IconButton(
+                                          tooltip: "Logout",
+                                          icon: Icon(Feather.log_out),
+                                          onPressed: () {
+                                            Navigator.pushReplacementNamed(
+                                                context, "/");
+                                          }),
+                                    )
                                   ],
                                 )
                               ],
@@ -372,30 +361,16 @@ class _AboutScreenState extends State<AboutScreen> {
                           Padding(
                             padding: EdgeInsets.fromLTRB(30, 20, 30, 10),
                             child: Text(
-                              "Open Source",
+                              "Privacy Policy",
                               style: GoogleFonts.openSans(
                                   fontSize: 20, fontWeight: FontWeight.bold),
                             ),
                           ),
                           Padding(
                             padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
-                            child: Column(
-                              children: [
-                                Text(
-                                  "WVSU Campus tour app is being developed publicly on GitHub. Anyone with or without the knowledge of programming can help with its development. Please report any suggestions or issues by pressing the button below.",
-                                  style: GoogleFonts.openSans(),
-                                ),
-                                SizedBox(
-                                  width: double.infinity,
-                                  child: RaisedButton.icon(
-                                      onPressed: () {
-                                        _launchURL(
-                                            "https://github.com/wvsu-cict-code/wvsu-tour-app/issues");
-                                      },
-                                      icon: Icon(FontAwesome.github),
-                                      label: Text("Contribute")),
-                                )
-                              ],
+                            child: Text(
+                              "Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic. Gumbo beet greens corn soko endive gumbo gourd. Parsley shallot courgette tatsoi pea sprouts fava bean collard greens dandelion okra wakame tomato. Dandelion cucumber earthnut pea peanut soko zucchini. Turnip greens yarrow ricebean rutabaga endive cauliflower sea lettuce kohlrabi amaranth water spinach avocado daikon napa cabbage asparagus winter purslane kale. Celery potato scallion desert raisin horseradish spinach carrot soko. Lotus root water spinach fennel kombu maize bamboo shoot green bean swiss chard seakale pumpkin onion chickpea gram corn pea. Brussels sprout coriander water chestnut gourd swiss chard wakame kohlrabi beetroot carrot watercress. Corn amaranth salsify bunya nuts nori azuki bean chickweed potato bell pepper artichoke.",
+                              style: GoogleFonts.openSans(),
                             ),
                           ),
                           SizedBox(height: 20)
