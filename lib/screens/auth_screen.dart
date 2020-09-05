@@ -94,9 +94,6 @@ class _AuthScreenState extends State<AuthScreen> {
       );
       userCredential =
           await widget.auth.signInWithCredentials(googleAuthCredential);
-      setState(() {
-        _loading = true;
-      });
       _showSnackbar("Logged in with Google");
       print(userCredential.user.uid);
     } catch (e) {
