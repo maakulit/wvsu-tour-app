@@ -45,7 +45,15 @@ class AnnouncementCard extends StatelessWidget {
                             style: GoogleFonts.openSans(
                                 color: Color(0xFF000000), fontSize: 18),
                           ),
-                          Text("Announcement description here"),
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.5,
+                            child: Text(
+                              "Announcement description here. This announcement is so long that you can't read most of this text.",
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 2,
+                              softWrap: true,
+                            ),
+                          ),
                           Divider(),
                           Row(
                             children: [
