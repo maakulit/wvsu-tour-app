@@ -1,9 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:websafe_svg/websafe_svg.dart';
+import 'package:wvsu_tour_app/components/app_legal_links.dart';
+import 'package:wvsu_tour_app/components/app_primary_button.dart';
+import 'package:wvsu_tour_app/components/app_secondary_button.dart';
 import 'package:wvsu_tour_app/config/app.dart';
 import 'package:wvsu_tour_app/firebase/auth.dart';
 import 'package:wvsu_tour_app/screens/facebook_auth_screen.dart';
@@ -44,14 +48,13 @@ class _AuthScreenState extends State<AuthScreen> {
 
   _loginWithFacebook() async {
     UserCredential userCredential;
-    String appid = "618815765675430";
     String redirectUri = "https://www.facebook.com/connect/login_success.html";
     String result = await Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => FacebookAuthWeb(
                   selectedUrl:
-                      'https://www.facebook.com/dialog/oauth?client_id=$appid&redirect_uri=$redirectUri&response_type=token&scope=email,public_profile,',
+                      'https://www.facebook.com/dialog/oauth?client_id=$facebookAppID&redirect_uri=$redirectUri&response_type=token&scope=email,public_profile,',
                 ),
             maintainState: true));
     if (result != null) {
@@ -74,7 +77,7 @@ class _AuthScreenState extends State<AuthScreen> {
     }
   }
 
-  void _loginWithGoogle() async {
+  _loginWithGoogle() async {
     try {
       setState(() {
         _loading = true;
@@ -148,6 +151,35 @@ class _AuthScreenState extends State<AuthScreen> {
         break;
     }
 
+    _switchToState(int _initial, int _final) {
+      {
+        setState(() {
+          _pageState != _initial ? _pageState = _initial : _pageState = _final;
+        });
+
+        setState(() {
+          _appIcon = Container(
+              key: ValueKey(2),
+              child: Column(
+                children: [
+                  WebsafeSvg.asset("assets/icon/icon-light.svg",
+                      height: appIconSize),
+                  SizedBox(height: 20),
+                  Text(
+                    "West Visayas State University",
+                    style: GoogleFonts.openSans(color: Colors.white),
+                  ),
+                  Text("Campus Tour",
+                      style: GoogleFonts.pattaya(
+                          color: Colors.white, fontSize: 30))
+                ],
+              ));
+        });
+
+        print(_pageState);
+      }
+    }
+
     return new Scaffold(
         key: _scaffoldKey,
         body: Stack(
@@ -188,49 +220,12 @@ class _AuthScreenState extends State<AuthScreen> {
                       padding: EdgeInsets.all(30),
                       child: SizedBox(
                         width: double.infinity,
-                        child: FlatButton(
-                            color: Color(0xFF075BB3),
-                            padding: EdgeInsets.fromLTRB(25, 15, 25, 15),
-                            onPressed: () {
-                              setState(() {
-                                _pageState != 0
-                                    ? _pageState = 0
-                                    : _pageState = 1;
-                              });
-
-                              setState(() {
-                                _appIcon = Container(
-                                    key: ValueKey(2),
-                                    child: Column(
-                                      children: [
-                                        WebsafeSvg.asset(
-                                            "assets/icon/icon-light.svg",
-                                            height: appIconSize),
-                                        SizedBox(height: 20),
-                                        Text(
-                                          "West Visayas State University",
-                                          style: GoogleFonts.openSans(
-                                              color: Colors.white),
-                                        ),
-                                        Text("Campus Tour",
-                                            style: GoogleFonts.pattaya(
-                                                color: Colors.white,
-                                                fontSize: 30))
-                                      ],
-                                    ));
-                              });
-
-                              print(_pageState);
-                            },
-                            child: Text(
-                              "Let's Go!",
-                              style: GoogleFonts.openSans(
-                                  color: Colors.white, fontSize: 15),
-                            ),
-                            textColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(23)))),
+                        child: AppPrimaryButton(
+                          text: "Let's Go!",
+                          onPressed: () {
+                            _switchToState(0, 1);
+                          },
+                        ),
                       ))
                 ],
               ),
@@ -267,104 +262,42 @@ class _AuthScreenState extends State<AuthScreen> {
                         Padding(
                             padding: EdgeInsets.symmetric(
                                 horizontal: 20, vertical: 10),
-                            child: SizedBox(
-                              width: double.infinity,
-                              child: FlatButton.icon(
-                                  color: Color(0xFF075BB3),
-                                  padding: EdgeInsets.fromLTRB(25, 15, 25, 15),
-                                  onPressed: () {
-                                    _loginWithFacebook();
-                                  },
-                                  icon: Icon(SimpleLineIcons.social_facebook),
-                                  label: Text(
-                                    "Login with Facebook",
-                                    style: GoogleFonts.openSans(
-                                        color: Colors.white, fontSize: 15),
-                                  ),
-                                  textColor: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(23)))),
+                            child: AppPrimaryButton(
+                              onPressed: () => _loginWithFacebook,
+                              text: "Login with Facebook",
+                              icon: SimpleLineIcons.social_facebook,
                             )),
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          child: SizedBox(
+                              width: double.infinity,
+                              child: AppPrimaryButton(
+                                text: "Login with Google",
+                                icon: SimpleLineIcons.social_google,
+                                onPressed: () => _loginWithGoogle,
+                              )),
+                        ),
                         Padding(
                             padding: EdgeInsets.symmetric(
                                 horizontal: 20, vertical: 10),
                             child: SizedBox(
-                              width: double.infinity,
-                              child: FlatButton.icon(
-                                  color: Color(0xFF075BB3),
-                                  padding: EdgeInsets.fromLTRB(25, 15, 25, 15),
+                                width: double.infinity,
+                                child: AppSecondaryButton(
+                                  text: "Create a New Account",
                                   onPressed: () {
-                                    _loginWithGoogle();
+                                    this.setState(() {
+                                      _pageState != 2
+                                          ? _pageState = 2
+                                          : _pageState = 1;
+                                    });
+                                    print(_pageState);
                                   },
-                                  icon: Icon(SimpleLineIcons.social_google),
-                                  label: Text(
-                                    "Login with Google",
-                                    style: GoogleFonts.openSans(
-                                        color: Colors.white, fontSize: 15),
-                                  ),
-                                  textColor: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(23)))),
-                            )),
-                        Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 10),
-                            child: SizedBox(
-                              width: double.infinity,
-                              child: FlatButton(
-                                padding: EdgeInsets.fromLTRB(25, 16, 25, 16),
-                                onPressed: () {
-                                  setState(() {
-                                    _pageState != 2
-                                        ? _pageState = 2
-                                        : _pageState = 1;
-                                  });
-                                  print(_pageState);
-                                },
-                                child: Text(
-                                  "Create a New Account",
-                                  style: GoogleFonts.openSans(
-                                      color: appPrimaryColor, fontSize: 15),
-                                ),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(23),
-                                    side: BorderSide(color: appPrimaryColor)),
-                              ),
-                            )),
+                                ))),
                         SizedBox(
                           height: 10,
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.pushNamed(context, "/legal");
-                          },
-                          child: RichText(
-                              text: TextSpan(children: [
-                            TextSpan(
-                                text:
-                                    "Taga-West! By logging into an account, you are agreeing with our ",
-                                style: GoogleFonts.openSans(
-                                    color: appTextBodyColor)),
-                            TextSpan(
-                              text: "Terms and Conditions",
-                              style: GoogleFonts.openSans(
-                                  fontWeight: FontWeight.bold,
-                                  color: appTextBodyColor),
-                            ),
-                            TextSpan(
-                                text: " and ",
-                                style: GoogleFonts.openSans(
-                                    color: appTextBodyColor)),
-                            TextSpan(
-                              text: "Privacy Policy.",
-                              style: GoogleFonts.openSans(
-                                  fontWeight: FontWeight.bold,
-                                  color: appTextBodyColor),
-                            ),
-                          ])),
-                        )
+                        AppLegalLinks()
                       ],
                     ),
                     Positioned(
@@ -455,82 +388,30 @@ class _AuthScreenState extends State<AuthScreen> {
                     Padding(
                         padding:
                             EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                        child: SizedBox(
-                          width: double.infinity,
-                          child: FlatButton.icon(
-                              color: Color(0xFF075BB3),
-                              padding: EdgeInsets.fromLTRB(25, 15, 25, 15),
-                              onPressed: () {
-                                _loginWithGoogle();
-                              },
-                              icon: Icon(SimpleLineIcons.social_google),
-                              label: Text(
-                                "Continue with Google",
-                                style: GoogleFonts.openSans(
-                                    color: Colors.white, fontSize: 15),
-                              ),
-                              textColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(23)))),
+                        child: AppPrimaryButton(
+                          text: "Continue with Google",
+                          onPressed: () => _loginWithGoogle,
                         )),
                     Padding(
                         padding:
                             EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                         child: SizedBox(
-                          width: double.infinity,
-                          child: FlatButton(
-                            padding: EdgeInsets.fromLTRB(25, 16, 25, 16),
-                            onPressed: () {
-                              setState(() {
-                                _pageState == 2
-                                    ? _pageState = 1
-                                    : _pageState = 0;
-                              });
-                              print(_pageState);
-                            },
-                            child: Text(
-                              "Back to Login",
-                              style: GoogleFonts.openSans(
-                                  color: appPrimaryColor, fontSize: 15),
-                            ),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(23),
-                                side: BorderSide(color: appPrimaryColor)),
-                          ),
-                        )),
+                            width: double.infinity,
+                            child: AppSecondaryButton(
+                              text: "Back to Login",
+                              onPressed: () {
+                                setState(() {
+                                  _pageState == 2
+                                      ? _pageState = 1
+                                      : _pageState = 0;
+                                });
+                                print(_pageState);
+                              },
+                            ))),
                     SizedBox(
                       height: 10,
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, "/legal");
-                      },
-                      child: RichText(
-                          text: TextSpan(children: [
-                        TextSpan(
-                            text:
-                                "By creating an account, you are agreeing with our ",
-                            style:
-                                GoogleFonts.openSans(color: appTextBodyColor)),
-                        TextSpan(
-                          text: "Terms and Conditions",
-                          style: GoogleFonts.openSans(
-                              fontWeight: FontWeight.bold,
-                              color: appTextBodyColor),
-                        ),
-                        TextSpan(
-                            text: " and ",
-                            style:
-                                GoogleFonts.openSans(color: appTextBodyColor)),
-                        TextSpan(
-                          text: "Privacy Policy.",
-                          style: GoogleFonts.openSans(
-                              fontWeight: FontWeight.bold,
-                              color: appTextBodyColor),
-                        )
-                      ])),
-                    )
+                    AppLegalLinks()
                   ],
                 ),
               ),
