@@ -2,6 +2,7 @@ import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:wvsu_tour_app/firebase/auth.dart';
+import 'package:wvsu_tour_app/models/models.dart';
 import 'package:wvsu_tour_app/screens/about_screen.dart';
 import 'package:wvsu_tour_app/screens/announcements_screen.dart';
 import 'package:wvsu_tour_app/screens/campus_life_screen.dart';
@@ -9,9 +10,10 @@ import 'package:wvsu_tour_app/screens/navigator_screen.dart';
 import 'package:wvsu_tour_app/screens/thankyou_frontliners_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key key, this.auth}) : super(key: key);
+  HomeScreen({Key key, this.auth, this.announcements}) : super(key: key);
 
   final BaseAuth auth;
+  final Announcements announcements;
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -57,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen>
           onTap: (int i) => print('click index=$i'),
         ),
         body: TabBarView(controller: _tabController, children: [
-          new AnnouncementsScreen(),
+          new AnnouncementsScreen(contents: widget.announcements),
           new CampusLifeScreen(),
           new NavigatorScreen(),
           new ThankyouFrontlinersScreen(),

@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wvsu_tour_app/components/announcement_card.dart';
 import 'package:wvsu_tour_app/config/app.dart';
+import 'package:wvsu_tour_app/models/models.dart';
 
 class AnnouncementsScreen extends StatefulWidget {
-  AnnouncementsScreen({Key key}) : super(key: key);
-
+  AnnouncementsScreen({Key key, this.contents}) : super(key: key);
+  final Announcements contents;
   @override
   _AnnouncementsScreenState createState() => _AnnouncementsScreenState();
 }
